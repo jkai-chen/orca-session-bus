@@ -42,7 +42,7 @@ What the script does, so you know what to expect:
 4. The mover restarts each ready session once its pane is idle (log `<folder>/mover.log`; `<name>.done` marks it
    moved). It gives up after 3 hours.
 5. When all others are done, touch your own `.ready` and end your turn; the mover restarts you last. After your
-   restart, list your scheduled jobs before re-creating anything (a resume can bring old ones back), update the Bus column in the routing table, and run
+   restart, list your scheduled jobs before re-creating anything (a resume can bring old ones back), update the routing row (`route.sh set <name> reach=… pane=…`), and run
    `bus-link.sh --check`.
 
 Why the coordinator goes last: if it moved first, nobody would be left to watch the mover or answer stuck sessions.

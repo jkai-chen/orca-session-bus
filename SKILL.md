@@ -22,8 +22,9 @@ Every session falls into one of these. Find out which before you message it:
 3. **Pane.** Last resort for anyone: type into the Orca terminal pane by its handle. It always works, but it's
    unstructured and can collide with a human or another sender.
 
-The routing table records which way each session is reached
-([references/routing-table.md](references/routing-table.md)).
+The routing table (a SQLite database with a markdown view, managed by `scripts/route.sh`) records which way each
+session is reached ([references/routing-table.md](references/routing-table.md)). With more than one host, the user
+picks the master host; ask, don't assume.
 
 ## Why accounts split the native bus
 
@@ -44,7 +45,7 @@ resuming a conversation works under any account.
 | A message bounced, or a live session is missing from the agent list | [references/troubleshooting.md](references/troubleshooting.md) |
 | Running sessions must move to another account | [references/moving-sessions.md](references/moving-sessions.md) |
 | Starting, briefing, messaging or retiring a session without built-in messaging | [references/mailbox-sessions.md](references/mailbox-sessions.md) |
-| A session starts, ends or moves, or messaging is down and you need to reach someone | [references/routing-table.md](references/routing-table.md) |
+| A session starts, ends or moves, the master host changes, or messaging is down and you need to reach someone | [references/routing-table.md](references/routing-table.md) |
 
 ## Link the bus
 

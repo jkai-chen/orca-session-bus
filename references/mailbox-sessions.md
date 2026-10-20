@@ -5,7 +5,7 @@ most CLI agents (Codex, Gemini CLI, aider and others), and any agent on a machin
 
 A common split, and why: sessions that coordinate (leads, builders) run on an agent with native messaging and
 sub-agents; cheap, repetitive review and test jobs run on whichever provider is cheapest, often on a second machine.
-Write your own "who runs where" table in the routing file, so a new lead doesn't have to guess.
+Keep the "who runs where" table in the routing table, so a new lead doesn't have to guess.
 
 ## The mailbox protocol
 
@@ -44,7 +44,7 @@ Write your own "who runs where" table in the routing file, so a new lead doesn't
    - the status-file format;
    - "stamp from `date`".
 6. **Pair it with the relay.** Its lead sends the relay its name, pane handle, host, owner and status file.
-7. **Add its routing row**, with the agent and model in the role column and "mailbox" as its bus.
+7. **Add its routing row** (`route.sh set`), with the agent and model recorded and `reach=mailbox`.
 
 It's done when its first OUTBOX line (for example `READY`) reaches its lead through the relay.
 
@@ -70,5 +70,5 @@ never type over it.
 Machines have a practical cap on concurrent sessions. To retire one:
 1. At its next free point, it writes its handoff into its status file.
 2. Close it cleanly, stopping its scheduled jobs.
-3. Delete its routing row.
+3. Retire its routing row (`route.sh retire`).
 4. Tell the relay to drop the pane.
