@@ -1,18 +1,18 @@
-# A message bounced, or a session is missing from ListAgents
+# A message bounced, or a session is missing from the agent list
 
 Work down the list; most cases end at step 1.
 
 1. **Split bus.** Run `bash "$SKILL_DIR/scripts/bus-link.sh" --check`. A `SPLIT` line is the cause: run the script
-   without `--check`. Both groups show up in `ListAgents` within a few seconds. Then check the guard is running
+   without `--check`. Both groups show up in the agent list within a few seconds. Then check the guard is running
    (`pgrep -f bus-guard.sh`); a split that keeps coming back means it isn't.
-2. **Registered somewhere else.** If every profile says `linked`, look for the session's registry file by its pid:
-   `ls "${SESSION_BUS_DIR:-$HOME/.claude/sessions}/<pid>.json"`. A missing file means it registered under another
-   `CLAUDE_CONFIG_DIR`; read it with `ps eww -o command= -p <pid>` and link that location too.
+2. **Registered somewhere else.** If every profile says `linked`, look for the session's registry entry by its pid (for Claude Code:
+   `ls "${SESSION_BUS_DIR:-$HOME/.claude/sessions}/<pid>.json"`). A missing entry means it registered under another
+   config folder; read the process environment (`ps eww -o command= -p <pid>`) and link that location too.
 3. **A name clash.** `bus-link.sh` prints `LEFT` when a profile's registry file has the same name as one in the shared
    folder. Compare the two files (the pid in the name tells you which process each belongs to), remove the one whose pid
    is dead, and run the script again.
-4. **It's not a Claude session.** Codex and other providers are never on the bus. See
-   [multi-provider.md](multi-provider.md).
+4. **Its agent has no native bus.** It's reached by mailbox or pane, never by the bus. See
+   [mailbox-sessions.md](mailbox-sessions.md).
 5. **Delivery was held, not lost.** A session running in a different permission mode can hold cross-session messages
    for its user's approval. The send succeeds, but nothing is read. Ask its user, or use the pane fallback.
 
@@ -24,8 +24,9 @@ Cross-session messages are read between tool rounds, not mid-tool. A session bus
 finishes. Two leads sending conflicting instructions will cross; whoever receives them should act on the one with the
 later timestamp *taken from `date`* (sessions estimating the time drift by tens of minutes), and say so.
 
-## Duplicate crons or reminders after a resume
+## Duplicate scheduled jobs after a resume
 
-`--resume` can bring back the old session's crons, and a session closed with "Move to background and exit" leaves a
-`claude daemon` firing them under the same name. Run `CronList` first after any resume, delete duplicates, and close
-sessions with **"Exit and stop tasks"** when you intend to resume them elsewhere.
+Resuming a conversation can bring back the old session's scheduled jobs, and some agents keep a background process
+firing them after the window closes (Claude Code does this when you pick "Move to background and exit"). After any
+resume, list the scheduled jobs first and delete duplicates. When you mean to resume a session elsewhere, close it with
+the option that stops its tasks (Claude Code: **"Exit and stop tasks"**).

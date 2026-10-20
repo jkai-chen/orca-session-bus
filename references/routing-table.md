@@ -1,7 +1,7 @@
 # The routing table: the fallback that is always current
 
 Keep one file (for example `ROUTING.md` next to your project notes) that lists every session on every provider and
-machine: name, role, owner, bus (which registry or "status file"), pane handle, host, provider/model, successor.
+machine: name, role, owner, how it's reached (native bus, mailbox or pane), pane handle, host, agent/model, successor.
 
 Why it matters: when the bus splits, the only way to reach a session is its pane, and only the table knows the handle.
 It is also the record of who exists, so nobody briefs a session that has already ended.
@@ -17,7 +17,7 @@ rows silently.
 - **Session moves** (pane, account or machine): it sends the new Pane or Bus.
 - **Lead handover:** the outgoing lead names the successor in the table before stopping.
 
-Each sweep, the editor re-checks rows against the registries (`ls ~/.claude/sessions/*.json`) and
+Each sweep, the editor re-checks rows against the native registries (for Claude Code, `ls ~/.claude/sessions/*.json`) and
 `orca terminal list`, and fixes drift.
 
 ## Copying it to another machine

@@ -1,4 +1,4 @@
 interface:
   display_name: "Orca Session Bus"
-  short_description: "Keep Claude Code and Codex sessions reachable across Orca accounts"
+  short_description: "Keep AI agent sessions reachable across Orca accounts, machines and providers"
   default_prompt: "Use $orca-session-bus to check that all my Orca sessions share one bus and fix any split."

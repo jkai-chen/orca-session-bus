@@ -1,6 +1,6 @@
 #!/bin/bash
 # bus-guard.sh: keep the bus linked. Every BUS_GUARD_INTERVAL seconds (default 15) it checks every Orca profile and
-# re-links any that split (a claude start, resume or /compact, or an Orca update, can recreate a profile's sessions/).
+# re-links any that split (an agent start, resume or compaction, or an Orca update, can recreate a profile's registry).
 # Run once per machine: nohup bash bus-guard.sh >/dev/null 2>&1 &     Stop: pkill -f bus-guard.sh
 # Env: BUS_GUARD_LOG (default ~/.orca-session-bus/bus-guard.log), plus bus-link.sh's settings.
 trap ': keep going' HUP URG
